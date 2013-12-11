@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 
 import de.benni.firstgame.graphics.Screen;
 import de.benni.firstgame.input.Keyboard;
+import de.benni.firstgame.level.Level;
+import de.benni.firstgame.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +25,7 @@ public class Game extends Canvas implements Runnable {
 	public Thread thread;
 	public JFrame frame;
 	private Keyboard key;
+	private Level level;
 	private boolean running = false;
 
 	private Screen screen;
@@ -37,6 +40,7 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
+		level = new RandomLevel(64, 64);
 
 		addKeyListener(key);
 	}
@@ -90,10 +94,10 @@ public class Game extends Canvas implements Runnable {
 
 	public void update() {
 		key.update();
-		if(key.up) y--;
-		if(key.down) y++;
-		if(key.left) x--;
-		if(key.right) x++;
+		if (key.up) y--;
+		if (key.down) y++;
+		if (key.left) x--;
+		if (key.right) x++;
 	}
 
 	public void render() {
@@ -104,7 +108,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen.clear();
-		screen.render(x, y);
+		level.render(x, y, screen);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];

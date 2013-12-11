@@ -31,18 +31,6 @@ public class Screen {
 		}
 	}
 
-	public void render(int xOffset, int yOffset) {
-		for (int y = 0; y < height; y++) {
-			int yp = y + yOffset;
-			if (yp < 0 || yp >= height) continue;
-			for (int x = 0; x < width; x++) {
-				int xp = x + xOffset;
-				if (xp < 0 || xp >= width) continue;
-				pixels[xp + yp * width] = Sprite.grass.pixels[(x & 15) + (y & 15) * Sprite.grass.SIZE];
-			}
-		}
-	}
-
 	/*
 	 * Offset Prinzip xp = x Position -> wo soll es hin x = welches Pixel wird
 	 * geändert xa = absolute Position -> wo ist es dann
@@ -56,7 +44,8 @@ public class Screen {
 				int xa = x + xp;
 				// Breaken wenn gerendert wird wo der Screen aufhört. Nur
 				// rendern was auf dem Screnn ist!
-				if (xa < 0 || xa >= width || ya < 0 || ya >= width) break;
+				if (xa < -tile.sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
+				if (xa < 0) xa = 0;
 				pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
 			}
 		}
