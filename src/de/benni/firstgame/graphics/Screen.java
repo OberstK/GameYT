@@ -2,6 +2,7 @@ package de.benni.firstgame.graphics;
 
 import java.util.Random;
 
+import de.benni.firstgame.entity.mob.Player;
 import de.benni.firstgame.level.tile.Tile;
 
 public class Screen {
@@ -44,9 +45,25 @@ public class Screen {
 				int xa = x + xp;
 				// Breaken wenn gerendert wird wo der Screen aufhört. Nur
 				// rendern was auf dem Screnn ist!
+				// -Size für die Reihe knapp außerhalb
 				if (xa < -tile.sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
 				if (xa < 0) xa = 0;
 				pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
+			}
+		}
+	}
+
+	public void renderPlayer(int xp, int yp, Sprite sprite) {
+		xp -= xOffest;
+		yp -= yOffset;
+		for (int y = 0; y < 16; y++) {
+			int ya = y + yp;
+			for (int x = 0; x < 16; x++) {
+				int xa = x + xp;
+				if (xa < -16 || xa >= width || ya < 0 || ya >= height) break;
+				if (xa < 0) xa = 0;
+				int col = sprite.pixels[x + y * 16];
+				if(col != 0xffFF00FF)	pixels[xa + ya * width] = col;
 			}
 		}
 	}

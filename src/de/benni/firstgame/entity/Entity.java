@@ -19,13 +19,13 @@ public abstract class Entity {
 	public void render(Screen screen) {
 
 	}
-	
-	public void remove(){
-		//Remove from level
+
+	public void remove() {
+		// Remove from level
 		removed = true;
 	}
-	
-	public boolean isRemoved(){
+
+	public boolean isRemoved() {
 		return removed;
 	}
 

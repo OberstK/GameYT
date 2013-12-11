@@ -38,6 +38,7 @@ public class Level {
 	public void render(int xScroll, int yScroll, Screen screen) {
 		screen.setOffset(xScroll, yScroll);
 		// Tile Precision. Ohne Bitshift ist es das exakte Pixel
+		// + 16 für doe Reihe außerhalb des Screens -> eine zusätzliche Reihe rendern
 		int x0 = xScroll >> 4; // xScroll / 16
 		int x1 = (xScroll + screen.width + 16) >> 4;
 		int y0 = yScroll >> 4; // yScroll / 16

@@ -1,7 +1,9 @@
 package de.benni.firstgame;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -9,6 +11,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import de.benni.firstgame.entity.mob.Player;
 import de.benni.firstgame.graphics.Screen;
 import de.benni.firstgame.input.Keyboard;
 import de.benni.firstgame.level.Level;
@@ -26,6 +29,7 @@ public class Game extends Canvas implements Runnable {
 	public JFrame frame;
 	private Keyboard key;
 	private Level level;
+	private Player player;
 	private boolean running = false;
 
 	private Screen screen;
@@ -41,6 +45,7 @@ public class Game extends Canvas implements Runnable {
 		frame = new JFrame();
 		key = new Keyboard();
 		level = new RandomLevel(64, 64);
+		player = new Player(key);
 
 		addKeyListener(key);
 	}
@@ -90,14 +95,9 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	int x = 0, y = 0;
-
 	public void update() {
 		key.update();
-		if (key.up) y--;
-		if (key.down) y++;
-		if (key.left) x--;
-		if (key.right) x++;
+		player.update();
 	}
 
 	public void render() {
@@ -108,7 +108,10 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen.clear();
-		level.render(x, y, screen);
+		int xScroll = player.x - screen.width / 2;
+		int yScroll = player.y - screen.height / 2;
+		level.render(xScroll, yScroll, screen);
+		player.render(screen);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
@@ -116,6 +119,9 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Verdana", 0, 50));
+		//g.drawString("X: " + player.x + " Y: " + player.y, 350, 300);
 		g.dispose();
 		bs.show();
 	}
