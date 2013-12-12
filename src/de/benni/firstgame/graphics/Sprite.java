@@ -8,14 +8,38 @@ public class Sprite {
 	private SpriteSheet sheet;
 
 	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
+	public static Sprite flower = new Sprite(16, 1, 0, SpriteSheet.tiles);
+	public static Sprite rock = new Sprite(16, 2, 0, SpriteSheet.tiles);
 	public static Sprite voidSprite = new Sprite(16, 0x1FA7F0);
-	
-	public static Sprite player0 = new Sprite(16, 0, 10, SpriteSheet.tiles);
-	public static Sprite player1 = new Sprite(16, 1, 10, SpriteSheet.tiles);
-	public static Sprite player2 = new Sprite(16, 0, 11, SpriteSheet.tiles);
-	public static Sprite player3 = new Sprite(16, 1, 11, SpriteSheet.tiles);
-	
 
+	//32x32 Player
+	public static Sprite playerForward = new Sprite(32, 6, 7, SpriteSheet.tiles);
+	public static Sprite playerForward1 = new Sprite(32, 5, 7, SpriteSheet.tiles);
+	public static Sprite playerForward2 = new Sprite(32, 7, 7, SpriteSheet.tiles);
+
+	public static Sprite playerBack = new Sprite(32, 6, 4, SpriteSheet.tiles);
+	public static Sprite playerBack1 = new Sprite(32, 5, 4, SpriteSheet.tiles);
+	public static Sprite playerBack2 = new Sprite(32, 7, 4, SpriteSheet.tiles);
+
+	public static Sprite playerSide = new Sprite(32, 6, 5, SpriteSheet.tiles);
+	public static Sprite playerSide1 = new Sprite(32, 5, 5, SpriteSheet.tiles);
+	public static Sprite playerSide2 = new Sprite(32, 7, 5, SpriteSheet.tiles);
+
+	//16x16 Player
+	/*
+	public static Sprite playerForward = new Sprite(16, 13, 3, SpriteSheet.tiles);
+	public static Sprite playerForward1 = new Sprite(16, 14, 3, SpriteSheet.tiles);
+	public static Sprite playerForward2 = new Sprite(16, 15, 3, SpriteSheet.tiles);
+
+	public static Sprite playerBack = new Sprite(16, 13, 0, SpriteSheet.tiles);
+	public static Sprite playerBack1 = new Sprite(16, 14, 0, SpriteSheet.tiles);
+	public static Sprite playerBack2 = new Sprite(16, 15, 0, SpriteSheet.tiles);
+
+	public static Sprite playerSide = new Sprite(16, 13, 1, SpriteSheet.tiles);
+	public static Sprite playerSide1 = new Sprite(16, 14, 1, SpriteSheet.tiles);
+	public static Sprite playerSide2 = new Sprite(16, 15, 1, SpriteSheet.tiles);
+	 */
+	
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZE = size;
 		pixels = new int[SIZE * SIZE];
