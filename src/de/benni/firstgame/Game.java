@@ -15,7 +15,7 @@ import de.benni.firstgame.entity.mob.Player;
 import de.benni.firstgame.graphics.Screen;
 import de.benni.firstgame.input.Keyboard;
 import de.benni.firstgame.level.Level;
-import de.benni.firstgame.level.RandomLevel;
+import de.benni.firstgame.level.SpawnLevel;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
-		level = new RandomLevel(64, 64);
+		level = new SpawnLevel("/textures/level.png");
 		player = new Player(key);
 
 		addKeyListener(key);
