@@ -5,9 +5,10 @@ import de.benni.firstgame.level.tile.Tile;
 
 public class Level {
 
-	protected Tile[] tiles;
 	protected int width, height;
 	protected int[] tilesInt;
+	protected int[] tiles;
+	public static Level spawn = new SpawnLevel("/levels/spawn.png");
 
 	public Level(int width, int height) {
 		this.width = width;
@@ -18,6 +19,7 @@ public class Level {
 
 	public Level(String path) {
 		loadLevel(path);
+		generateLevel();
 	}
 
 	protected void generateLevel() {
@@ -47,19 +49,27 @@ public class Level {
 
 		for (int y = y0; y < y1; y++) {
 			for (int x = x0; x < x1; x++) {
-				if (x < 0 || y < 0 || x >= width || y >= height) Tile.voidTile.render(x,y, screen);
-				//getTile(x, y).render(x, y, screen);
-				else tiles[x + y * 16].render(x, y, screen);
+				getTile(x, y).render(x, y, screen);
 			}
 		}
 
 	}
-
+	
+	/* 	
+	*	Grass =  0xFF00 -> 0x00FF00
+	*	Flower = 0xFFFF00
+	*	Rock = 0x7F7F00
+	*
+	*	FF nach dem 0x wegen dem Alpha-Channel
+	*/
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
-		if (tilesInt[x + y * width] == 0) return Tile.grass;
-		if (tilesInt[x + y * width] == 1) return Tile.flower;
-		if (tilesInt[x + y * width] == 2) return Tile.rock;
+		if (tiles[x + y * width] == Tile.colSpawnFloor) return Tile.spawnFloor;
+		if (tiles[x + y * width] == Tile.colSpawnGrass) return Tile.spawnGrass;
+		if (tiles[x + y * width] == Tile.colSpawnHedge) return Tile.spawnHedge;
+		if (tiles[x + y * width] == Tile.colSpawnWall1) return Tile.spawnWall1;
+		if (tiles[x + y * width] == Tile.colSpawnWall2) return Tile.spawnWall2;
+		if (tiles[x + y * width] == Tile.colSpawnWater) return Tile.spawnWater;
 		return Tile.voidTile;
 	}
 }

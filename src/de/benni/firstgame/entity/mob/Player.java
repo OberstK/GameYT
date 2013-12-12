@@ -19,11 +19,13 @@ public class Player extends Mob {
 		this.y = y;
 		this.input = input;
 	}
+
 	int counter = 0;
+
 	public void update() {
 		int xa = 0, ya = 0;
 		counter++;
-		if(counter % 3 < 2){
+		if (counter % 3 < 2) {
 			if (anim < 7500) anim++;
 			else
 				anim = 0;

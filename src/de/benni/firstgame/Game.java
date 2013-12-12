@@ -15,7 +15,7 @@ import de.benni.firstgame.entity.mob.Player;
 import de.benni.firstgame.graphics.Screen;
 import de.benni.firstgame.input.Keyboard;
 import de.benni.firstgame.level.Level;
-import de.benni.firstgame.level.SpawnLevel;
+import de.benni.firstgame.level.tile.TileCoordinate;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -44,9 +44,9 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
-		level = new SpawnLevel("/textures/level.png");
-		player = new Player(key);
-
+		level = Level.spawn;
+		TileCoordinate playerSpawn = new TileCoordinate(19, 62);
+		player = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
 		addKeyListener(key);
 	}
 
