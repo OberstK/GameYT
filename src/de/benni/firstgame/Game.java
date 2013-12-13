@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 
 import de.benni.firstgame.entity.mob.Player;
 import de.benni.firstgame.graphics.Screen;
+import de.benni.firstgame.graphics.Sprite;
 import de.benni.firstgame.input.Keyboard;
 import de.benni.firstgame.input.Mouse;
 import de.benni.firstgame.level.Level;
@@ -127,6 +128,9 @@ public class Game extends Canvas implements Runnable {
 		int yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
+		
+		Sprite sprite = new Sprite(2,2,0xff);
+		screen.renderSprite(width -60, 50, sprite, true);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];

@@ -1,5 +1,7 @@
 package de.benni.firstgame.entity.projectile;
 
+import java.util.Random;
+
 import de.benni.firstgame.entity.Entity;
 import de.benni.firstgame.graphics.Sprite;
 
@@ -8,8 +10,11 @@ public abstract class Projectile extends Entity {
 	protected final int xOrigin, yOrigin;
 	protected double angle;
 	protected Sprite sprite;
+	protected double x, y;
 	protected double nx, ny;
-	protected double speed, rateOfFire, range, damage;
+	protected double distance;
+	protected double speed, range, damage;
+	protected final Random random = new Random();
 
 	public Projectile(int x, int y, double dir) {
 		this.xOrigin = x;

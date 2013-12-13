@@ -1,33 +1,43 @@
 package de.benni.firstgame.entity.projectile;
 
 import de.benni.firstgame.graphics.Screen;
+import de.benni.firstgame.graphics.Sprite;
 
 public class WizardProjectile extends Projectile {
+
+	public static final int FIRE_RATE = 15; //Höher bedeutet langsamer -> wie viele Ticks bis Schuss
 
 	public WizardProjectile(int x, int y, double dir) {
 		super(x, y, dir);
 		range = 200;
-		speed = 4;
+		speed = 3;
 		damage = 20;
-		rateOfFire = 5;
-		sprite = sprite.projectileWizard;
+		sprite = Sprite.projectileWizard;
 
 		//Vektor des Projektils
 		nx = speed * Math.cos(angle);
 		ny = speed * Math.sin(angle);
 	}
-	
-	public void update(){
+
+	public void update() {
+		if (level.tileCollision(x, y, nx, ny, 7)) remove();
 		move();
 	}
-	
-	protected void move(){
+
+	protected void move() {
 		x += nx;
 		y += ny;
+		if (distance() > range) remove();
 	}
-	
-	public void render(Screen screen){
-		screen.renderProjectile(x, y, this);
+
+	private double distance() {
+		double dist = 0;
+		dist = Math.sqrt(Math.abs((xOrigin - x) * (xOrigin - x) + (yOrigin - y) * (yOrigin - y)));
+		return dist;
+	}
+
+	public void render(Screen screen) {
+		screen.renderProjectile((int) x - 10, (int) y - 2, this);
 	}
 
 }

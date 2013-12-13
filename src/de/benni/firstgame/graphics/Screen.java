@@ -3,7 +3,6 @@ package de.benni.firstgame.graphics;
 import java.util.Random;
 
 import de.benni.firstgame.entity.projectile.Projectile;
-import de.benni.firstgame.level.tile.Tile;
 
 public class Screen {
 
@@ -32,6 +31,22 @@ public class Screen {
 		}
 	}
 
+	public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed) {
+		if (fixed) {
+			xp -= xOffest;
+			yp -= yOffset;
+		}
+		for (int y = 0; y < sprite.getHeight(); y++) {
+			int ya = y + yp;
+			for (int x = 0; x < sprite.getWidth(); x++) {
+				int xa = x + xp;
+				if (xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+				pixels[xa + ya * width] = sprite.pixels[x + y * sprite.getWidth()];
+			}
+		}
+
+	}
+
 	/*
 	 * Offset Prinzip xp = x Position -> wo soll es hin x = welches Pixel wird
 	 * geändert xa = absolute Position -> wo ist es dann
@@ -52,7 +67,7 @@ public class Screen {
 			}
 		}
 	}
-	
+
 	public void renderProjectile(int xp, int yp, Projectile p) {
 		xp -= xOffest;
 		yp -= yOffset;
@@ -66,11 +81,10 @@ public class Screen {
 				if (xa < -p.getSpriteSize() || xa >= width || ya < 0 || ya >= height) break;
 				if (xa < 0) xa = 0;
 				int col = p.getSprite().pixels[x + y * p.getSpriteSize()];
-				if(col != 0xFFFFFFFF) pixels[xa + ya * width] = col;
+				if (col != 0xFFFFFFFF) pixels[xa + ya * width] = col;
 			}
 		}
 	}
-
 
 	public void renderPlayer(int xp, int yp, Sprite sprite, int flip) {
 		xp -= xOffest;

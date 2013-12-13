@@ -1,6 +1,8 @@
 package de.benni.firstgame.entity.mob;
 
 import de.benni.firstgame.Game;
+import de.benni.firstgame.entity.projectile.Projectile;
+import de.benni.firstgame.entity.projectile.WizardProjectile;
 import de.benni.firstgame.graphics.Screen;
 import de.benni.firstgame.graphics.Sprite;
 import de.benni.firstgame.input.Keyboard;
@@ -11,6 +13,8 @@ public class Player extends Mob {
 	private Keyboard input;
 	private int anim = 0;
 	private boolean walking = false;
+	
+	private int fireRate = 0;
 
 	public Player(Keyboard input) {
 		this.input = input;
@@ -20,11 +24,14 @@ public class Player extends Mob {
 		this.x = x;
 		this.y = y;
 		this.input = input;
+		sprite = Sprite.playerForward;
+		fireRate = WizardProjectile.FIRE_RATE;
 	}
 
 	int counter = 0;
 
 	public void update() {
+		if(fireRate > 0) fireRate--;
 		int xa = 0, ya = 0;
 		counter++;
 		if (counter % 3 < 2) {
@@ -42,17 +49,25 @@ public class Player extends Mob {
 		} else {
 			walking = false;
 		}
-
+		clear();
 		updateShooting();
+	}
+
+	private void clear() {
+		for(int i = 0; i< level.getProjectiles().size(); i++){
+			Projectile p = level.getProjectiles().get(i);
+			if(p.isRemoved()) level.getProjectiles().remove(i);
+		}
 	}
 
 	private void updateShooting() {
 
-		if (Mouse.getButton() == 1) {
+		if (Mouse.getButton() == 1 && fireRate == 0) {
 			double dx = Mouse.getX()- Game.getWindowWidth() / 2;
 			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
 			double dir = Math.atan2(dy, dx);
 			shoot(x, y, dir);
+			fireRate = WizardProjectile.FIRE_RATE;
 		}
 	}
 

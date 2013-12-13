@@ -13,8 +13,6 @@ public abstract class Mob extends Entity {
 	protected Sprite sprite;
 	protected int dir = 0;
 	protected boolean moving = false;
-	
-	protected List<Projectile> projectiles = new ArrayList<Projectile>();
 
 	public void move(int xa, int ya) {
 		if (xa != 0 && ya != 0) {
@@ -37,10 +35,8 @@ public abstract class Mob extends Entity {
 	}
 
 	public void shoot(int xp, int yp, double dir) {
-		//System.out.println("Angle: " + dir);
 		Projectile p = new WizardProjectile(x,y, dir);
-		projectiles.add(p);
-		level.add(p);
+		level.addProjectile(p);
 	}
 
 	private boolean collision(int xa, int ya) {
