@@ -14,15 +14,16 @@ import javax.swing.JFrame;
 import de.benni.firstgame.entity.mob.Player;
 import de.benni.firstgame.graphics.Screen;
 import de.benni.firstgame.input.Keyboard;
+import de.benni.firstgame.input.Mouse;
 import de.benni.firstgame.level.Level;
 import de.benni.firstgame.level.tile.TileCoordinate;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
-	public static int width = 300;
-	public static int height = width / 16 * 9;
-	public static int scale = 3;
+	private static int width = 300;
+	private static int height = width / 16 * 9;
+	private static int scale = 3;
 	public static String title = "Rain";
 
 	public Thread thread;
@@ -47,7 +48,19 @@ public class Game extends Canvas implements Runnable {
 		level = Level.spawn;
 		TileCoordinate playerSpawn = new TileCoordinate(19, 62);
 		player = new Player(playerSpawn.getX(), playerSpawn.getY(), key);
+		player.init(level);
 		addKeyListener(key);
+		Mouse mouse = new Mouse();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
+	}
+
+	public static int getWindowWidth() {
+		return width * scale;
+	}
+
+	public static int getWindowHeight() {
+		return height * scale;
 	}
 
 	public synchronized void start() {
@@ -65,6 +78,7 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	@Override
 	public void run() {
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
@@ -87,7 +101,7 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println(updates + " ups, " + frames + " fps");
+				//System.out.println(updates + " ups, " + frames + " fps");
 				frame.setTitle(title + "  |  " + updates + " ups, " + frames + " fps");
 				updates = 0;
 				frames = 0;
@@ -98,6 +112,7 @@ public class Game extends Canvas implements Runnable {
 	public void update() {
 		key.update();
 		player.update();
+		level.update();
 	}
 
 	public void render() {
@@ -121,7 +136,8 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Verdana", 0, 50));
-		//g.drawString("X: " + player.x + " Y: " + player.y, 350, 300);
+		//g.fillRect(Mouse.getX() - 32, Mouse.getY() - 32, 64, 64);
+		//if (Mouse.getButton() != -1) g.drawString("Button: " + Mouse.getButton(), 80, 80);
 		g.dispose();
 		bs.show();
 	}

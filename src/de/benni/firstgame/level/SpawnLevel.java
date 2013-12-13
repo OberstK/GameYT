@@ -10,6 +10,7 @@ public class SpawnLevel extends Level {
 		super(path);
 	}
 
+	@Override
 	public void loadLevel(String path) {
 		try {
 			BufferedImage image = ImageIO.read(SpawnLevel.class.getResource(path));
@@ -23,8 +24,8 @@ public class SpawnLevel extends Level {
 		}
 	}
 
+	@Override
 	protected void generateLevel() {
-		System.out.println("Tiles: " + tiles[0]);
 	}
 
 }

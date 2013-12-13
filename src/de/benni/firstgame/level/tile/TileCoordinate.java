@@ -9,16 +9,16 @@ public class TileCoordinate {
 		this.x = x * TILE_SIZE;
 		this.y = y * TILE_SIZE;
 	}
-	
-	public int getX(){
+
+	public int getX() {
 		return x;
 	}
-	
-	public int getY(){
+
+	public int getY() {
 		return y;
 	}
-	
-	public int[] xy(){
+
+	public int[] xy() {
 		int[] r = new int[2];
 		r[0] = x;
 		r[1] = y;

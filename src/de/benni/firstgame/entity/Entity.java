@@ -29,4 +29,7 @@ public abstract class Entity {
 		return removed;
 	}
 
+	public void init(Level level) {
+		this.level = level;
+	}
 }

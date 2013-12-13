@@ -2,7 +2,7 @@ package de.benni.firstgame.graphics;
 
 import java.util.Random;
 
-import de.benni.firstgame.entity.mob.Player;
+import de.benni.firstgame.entity.projectile.Projectile;
 import de.benni.firstgame.level.tile.Tile;
 
 public class Screen {
@@ -36,22 +36,41 @@ public class Screen {
 	 * Offset Prinzip xp = x Position -> wo soll es hin x = welches Pixel wird
 	 * geändert xa = absolute Position -> wo ist es dann
 	 */
-	public void renderTile(int xp, int yp, Tile tile) {
+	public void renderTile(int xp, int yp, Sprite sprite) {
 		xp -= xOffest;
 		yp -= yOffset;
-		for (int y = 0; y < tile.sprite.SIZE; y++) {
+		for (int y = 0; y < sprite.SIZE; y++) {
 			int ya = y + yp;
-			for (int x = 0; x < tile.sprite.SIZE; x++) {
+			for (int x = 0; x < sprite.SIZE; x++) {
 				int xa = x + xp;
 				// Breaken wenn gerendert wird wo der Screen aufhört. Nur
 				// rendern was auf dem Screnn ist!
 				// -Size für die Reihe knapp außerhalb
-				if (xa < -tile.sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
+				if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
 				if (xa < 0) xa = 0;
-				pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
+				pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
 			}
 		}
 	}
+	
+	public void renderProjectile(int xp, int yp, Projectile p) {
+		xp -= xOffest;
+		yp -= yOffset;
+		for (int y = 0; y < p.getSpriteSize(); y++) {
+			int ya = y + yp;
+			for (int x = 0; x < p.getSpriteSize(); x++) {
+				int xa = x + xp;
+				// Breaken wenn gerendert wird wo der Screen aufhört. Nur
+				// rendern was auf dem Screnn ist!
+				// -Size für die Reihe knapp außerhalb
+				if (xa < -p.getSpriteSize() || xa >= width || ya < 0 || ya >= height) break;
+				if (xa < 0) xa = 0;
+				int col = p.getSprite().pixels[x + y * p.getSpriteSize()];
+				if(col != 0xFFFFFFFF) pixels[xa + ya * width] = col;
+			}
+		}
+	}
+
 
 	public void renderPlayer(int xp, int yp, Sprite sprite, int flip) {
 		xp -= xOffest;
@@ -75,6 +94,13 @@ public class Screen {
 				if (col != 0xffffffff) pixels[xa + ya * width] = col;
 			}
 		}
+		//Ursprung-Tile des Spielers weiß
+		//		for(int x = 0; x <16; x++){
+		//			for(int y = 0; y< 16; y++){
+		//				pixels[(xp+x) + (yp+y) * width] = 0xffffffff;
+		//			}
+		//		}
+
 	}
 
 	public void setOffset(int xOffset, int yOffset) {

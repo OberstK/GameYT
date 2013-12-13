@@ -10,6 +10,7 @@ public class RandomLevel extends Level {
 		super(width, height);
 	}
 
+	@Override
 	protected void generateLevel() {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {

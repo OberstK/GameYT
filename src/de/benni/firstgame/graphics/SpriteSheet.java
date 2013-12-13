@@ -10,9 +10,10 @@ public class SpriteSheet {
 	private String path;
 	public final int SIZE;
 	public int[] pixels;
-	
+
 	public static SpriteSheet tiles = new SpriteSheet("/textures/sheets/spritesheet.png", 256);
 	public static SpriteSheet spawnLevel = new SpriteSheet("/textures/sheets/spawn_level.png", 48);
+	public static SpriteSheet wizardProjectile = new SpriteSheet("/textures/sheets/projectiles/wizard.png", 48);
 	//public static SpriteSheet musketeers = new SpriteSheet("/textures/musketeers.png", 256);
 
 	public SpriteSheet(String path, int size) {
@@ -21,8 +22,8 @@ public class SpriteSheet {
 		pixels = new int[SIZE * SIZE];
 		load();
 	}
-	
-	private void load(){
+
+	private void load() {
 		try {
 			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
 			int w = image.getWidth();

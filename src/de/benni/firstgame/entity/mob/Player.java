@@ -1,8 +1,10 @@
 package de.benni.firstgame.entity.mob;
 
+import de.benni.firstgame.Game;
 import de.benni.firstgame.graphics.Screen;
 import de.benni.firstgame.graphics.Sprite;
 import de.benni.firstgame.input.Keyboard;
+import de.benni.firstgame.input.Mouse;
 
 public class Player extends Mob {
 
@@ -39,6 +41,18 @@ public class Player extends Mob {
 			walking = true;
 		} else {
 			walking = false;
+		}
+
+		updateShooting();
+	}
+
+	private void updateShooting() {
+
+		if (Mouse.getButton() == 1) {
+			double dx = Mouse.getX()- Game.getWindowWidth() / 2;
+			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
+			double dir = Math.atan2(dy, dx);
+			shoot(x, y, dir);
 		}
 	}
 
