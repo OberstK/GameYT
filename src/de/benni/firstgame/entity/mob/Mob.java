@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.benni.firstgame.entity.Entity;
+import de.benni.firstgame.entity.particle.Particle;
 import de.benni.firstgame.entity.projectile.Projectile;
 import de.benni.firstgame.entity.projectile.WizardProjectile;
 import de.benni.firstgame.graphics.Sprite;
@@ -35,8 +36,8 @@ public abstract class Mob extends Entity {
 	}
 
 	public void shoot(int xp, int yp, double dir) {
-		Projectile p = new WizardProjectile(x,y, dir);
-		level.addProjectile(p);
+		Projectile p = new WizardProjectile(x, y, dir);
+		level.add(p);
 	}
 
 	private boolean collision(int xa, int ya) {

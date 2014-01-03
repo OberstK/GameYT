@@ -51,6 +51,9 @@ public class Sprite {
 	//Projectile Sprites:
 	public static Sprite projectileWizard = new Sprite(16, 0, 0, SpriteSheet.wizardProjectile);
 
+	//Particles
+	public static Sprite particleNormal = new Sprite(3,0xAAAAAA);
+	
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZE = size;
 		this.width = size;

@@ -1,5 +1,6 @@
 package de.benni.firstgame.entity.projectile;
 
+import de.benni.firstgame.entity.spawner.ParticleSpawner;
 import de.benni.firstgame.graphics.Screen;
 import de.benni.firstgame.graphics.Sprite;
 
@@ -19,11 +20,16 @@ public class WizardProjectile extends Projectile {
 		ny = speed * Math.sin(angle);
 	}
 
+	@Override
 	public void update() {
-		if (level.tileCollision(x, y, nx, ny, 7)) remove();
+		if (level.tileCollision(x, y, nx, ny, 7)) {
+			level.add(new ParticleSpawner((int) x, (int) y, 44, 50, level));
+			remove();
+		}
 		move();
 	}
 
+	@Override
 	protected void move() {
 		x += nx;
 		y += ny;
@@ -36,6 +42,7 @@ public class WizardProjectile extends Projectile {
 		return dist;
 	}
 
+	@Override
 	public void render(Screen screen) {
 		screen.renderProjectile((int) x - 10, (int) y - 2, this);
 	}
